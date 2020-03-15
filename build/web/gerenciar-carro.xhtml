@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
+    
+
+    
+   
+    <h:form id="formCadastro">
+        <p:fieldset legend="Gerenciar carros">
+            <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="Salvar" action="#{managedBean.salvarCarro()}"  update="@form :formTabela"></p:commandButton>
+                <p:commandButton value="Cancelar" action="#{managedBean.limparCarro()}" update="@form" process="@this"></p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+            <p:panelGrid columns="2">
+                <h:outputLabel value="Modelo"></h:outputLabel>
+                <p:inputText value="#{managedBean.car.modelo}" required="true"></p:inputText>
+                <h:outputLabel value="Fabricante"></h:outputLabel>
+                <p:inputText value="#{managedBean.car.fabricante}" required="true"></p:inputText>
+                <h:outputLabel value="Cor"></h:outputLabel>
+                <p:inputText value="#{managedBean.car.cor}" required="true"></p:inputText>
+                <h:outputLabel value="Ano" ></h:outputLabel>
+                <p:inputMask mask="9999" value="#{managedBean.car.ano}" required="true"></p:inputMask>
+            </p:panelGrid>
+        </p:fieldset>
+            </h:form>
+    <h:form id="formTabela">
+            <p:dataTable value="#{managedBean.listaC}" var="carro">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{managedBean.carregarCarro(carro)}" process="@this" update=":formCadastro"></p:commandButton>
+                    <p:commandButton value="Deletar" action="#{managedBean.deletarCarro(carro)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Modelo" sortBy="#{carro.modelo}">
+                    <h:outputText value="#{carro.modelo}"></h:outputText>
+                </p:column>
+                <p:column headerText="Fabricante" sortBy="#{carro.fabricante}">
+                    <h:outputText value="#{carro.fabricante}"></h:outputText>
+                </p:column>
+                <p:column headerText="Cor" sortBy="#{carro.cor}">
+                    <h:outputText value="#{carro.cor}"></h:outputText>
+                </p:column>
+                <p:column headerText="Ano" sortBy="#{carro.ano}">
+                    <h:outputText value="#{carro.ano}">
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+        
+    </h:form>
+</ui:decorate>
+
+
